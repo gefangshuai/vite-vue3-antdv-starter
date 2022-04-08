@@ -1,0 +1,31 @@
+{
+  "name": "vite-vue3-antdv-starter",
+  "private": false,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite --mode dev",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@ant-design/icons-vue": "^6.1.0",
+    "@gefangshuai/frontend-utils": "^1.0.18",
+    "ant-design-vue": "^3.1.1",
+    "axios": "^0.26.1",
+    "core-js": "^3.8.3",
+    "dayjs": "^1.11.0",
+    "lodash": "^4.17.21",
+    "mitt": "^3.0.0",
+    "vue": "^3.2.25",
+    "vue-router": "^4.0.3",
+    "vuex": "^4.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.0",
+    "less": "^4.0.0",
+    "less-loader": "^8.0.0",
+    "prettier": "^2.6.1",
+    "unplugin-vue-components": "^0.18.5",
+    "vite": "^2.9.0"
+  }
+}
