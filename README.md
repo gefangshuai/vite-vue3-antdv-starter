@@ -1,7 +1,25 @@
-# Vue 3 + Vite
+Vue3 starter Base on Vite and Ant Design Vue
+----
+# Usage
+```bash
+git close git@github.com:gefangshuai/vite-vue3-antdv-starter.git
+cd vite-vue3-antdv-starter
+yarn install
+yarn dev
+```
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+# Dependencies
+- axios
+- ant-design-vue
+- mitt
+- lodash
+- dayjs
+- vue-router
+- vuex
+- [frontend-utils](https://github.com/gefangshuai/frontend-utils)
 
-## Recommended IDE Setup
-
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+# See
+- [Vite + Vue3 学习要点汇总](https://corebook.notion.site/Vite-Vue3-1a2a4719724c4a749d3439640706363a)
+- https://v3.cn.vuejs.org/
+- https://antdv.com
+- https://cn.vitejs.dev/
