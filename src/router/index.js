@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import example from "@/pages/example";
+import { pages } from '@/pages/example';
 
 const routes = [
   {
@@ -10,9 +10,9 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import('@/pages/Login.vue')
-  }
-].concat(example);
+    component: () => import('@/pages/Login.vue'),
+  },
+].concat(pages);
 
 const router = createRouter({
   history: createWebHistory(),

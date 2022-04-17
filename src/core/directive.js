@@ -1,7 +1,7 @@
 import Router from '@/router/index.js';
 
 export default {
-  install(app) {
+  install(app, options) {
     app.directive('link', {
       // 当被绑定的元素挂载到 DOM 中时……
       mounted(el, binding) {

@@ -5,7 +5,6 @@ import router from '@/router';
 import store from '@/store';
 import filter from '@/core/filters';
 import directive from "@/core/directive.js";
-
 createApp(App)
     .use(store)
     .use(directive)
