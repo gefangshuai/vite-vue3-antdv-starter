@@ -5,9 +5,9 @@ const ModifyVar = {
   'border-radius-base': '4px',
 
   // height rules
-  'height-base': '42px',
-  'height-lg': '50px',
-  'height-sm': '34px',
+  'height-base': '36px',
+  'height-lg': '45px',
+  'height-sm': '30px',
 };
 
 export { ModifyVar };
