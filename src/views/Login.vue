@@ -13,7 +13,7 @@
       </div>
       <div class="form-right">
         <a-tabs v-model:activeKey="currentTab" centered>
-          <a-tab-pane key="login" tab="登录">
+          <a-tab-pane key="login" tab="登录" class="padding-top">
             <login-form />
           </a-tab-pane>
           <a-tab-pane key="register" tab="注册">sss</a-tab-pane>
@@ -100,6 +100,19 @@
             width: 50%;
             justify-content: center;
           }
+        }
+
+        /deep/ .ant-form-item {
+          &.ant-form-item-has-error,
+          &.ant-form-item-with-help {
+            margin-bottom: 0;
+          }
+
+          margin-bottom: 28px;
+        }
+
+        /deep/ .ant-form-item-with-help .ant-form-item-explain {
+          min-height: 28px;
         }
       }
     }

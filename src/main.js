@@ -1,5 +1,4 @@
 import { createApp } from 'vue';
-import '@gefangshuai/frontend-utils/less/index.less';
 import '@/assets/less/main.less';
 import App from './App.vue';
 import router from '@/router';
