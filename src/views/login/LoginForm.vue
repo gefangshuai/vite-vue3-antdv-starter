@@ -1,13 +1,34 @@
 <template>
-  <a-form>
-    <a-form-item>
-      <a-input size="large" placeholder="请输入账号" />
+  <a-form ref="formRef" @finish="handleLogin" :model="formData">
+    <a-form-item
+      name="loginName"
+      :rules="[{ required: true, message: '请输入账号' }]"
+    >
+      <a-input
+        v-model:value="formData.loginName"
+        size="large"
+        placeholder="请输入账号"
+      />
+    </a-form-item>
+    <a-form-item
+      name="password"
+      :rules="[{ required: true, message: '请输入密码' }]"
+    >
+      <a-input-password
+        size="large"
+        v-model:value="formData.password"
+        placeholder="请输入密码"
+      />
     </a-form-item>
     <a-form-item>
-      <a-input-password size="large" placeholder="请输入密码" />
-    </a-form-item>
-    <a-form-item>
-      <a-button size="large" type="primary" block>登录</a-button>
+      <a-button
+        html-type="submit"
+        size="large"
+        type="primary"
+        block
+        :loading="logining"
+        >登录
+      </a-button>
     </a-form-item>
     <a-form-item>
       <text-block space-between>
@@ -19,6 +40,7 @@
 </template>
 
 <script setup>
+  import { logining, handleLogin, formData } from '_api/login';
   import TextBlock from '_comp/partial/TextBlock.vue';
 </script>
 

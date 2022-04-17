@@ -35,6 +35,7 @@ export default defineConfig(({ command, mode }) => {
       alias: {
         '@': path.resolve(__dirname, 'src'),
         _comp: path.resolve(__dirname, 'src/components'),
+        _api: path.resolve(__dirname, 'src/api'),
       },
     },
     css: {
