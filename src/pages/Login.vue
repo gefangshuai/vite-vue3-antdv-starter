@@ -93,7 +93,7 @@
       .form-right {
         flex: 1;
 
-        /deep/ .ant-tabs-nav-list {
+        :deep(.ant-tabs-nav-list) {
           width: 100%;
 
           .ant-tabs-tab {
@@ -102,7 +102,7 @@
           }
         }
 
-        /deep/ .ant-form-item {
+        :deep(.ant-form-item) {
           &.ant-form-item-has-error,
           &.ant-form-item-with-help {
             margin-bottom: 0;
@@ -111,7 +111,7 @@
           margin-bottom: 28px;
         }
 
-        /deep/ .ant-form-item-with-help .ant-form-item-explain {
+        :deep(.ant-form-item-with-help .ant-form-item-explain) {
           min-height: 28px;
         }
       }

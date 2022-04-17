@@ -62,7 +62,7 @@
 <script setup>
   import '@/assets/less/admin-layout/index.less';
   import { MenuUnfoldOutlined } from '@ant-design/icons-vue';
-  import { onBeforeMount, onMounted, reactive, ref } from 'vue';
+  import { onBeforeMount, reactive, ref } from 'vue';
   import { handleMenuClick } from '_comp/layout/service/adminLayout.js';
   import { useRoute, useRouter } from 'vue-router';
 
