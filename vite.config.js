@@ -10,7 +10,26 @@ export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd());
   console.log('env', env);
   return {
-    plugins: [vue(), Components({ resolvers: [AntDesignVueResolver()] })],
+    plugins: [
+      vue(),
+      Components({
+        resolvers: [
+          AntDesignVueResolver({
+            // 样式覆盖
+            importStyle: 'less',
+          }),
+        ],
+      }),
+    ],
+    build: {
+      // 去除console
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+        },
+      },
+    },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, 'src'),
@@ -20,6 +39,11 @@ export default defineConfig(({ command, mode }) => {
     css: {
       preprocessorOptions: {
         less: {
+          modifyVars: {
+            'text-color': '#333E48',
+            'primary-color': '#1DA57A',
+            'border-radius-base': '2px',
+          },
           javascriptEnabled: true,
         },
       },
