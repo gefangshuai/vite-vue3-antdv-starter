@@ -4,6 +4,7 @@ import path from 'path';
 // ant design vue 按需加载
 import Components from 'unplugin-vue-components/vite';
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
+import { ModifyVar } from './conf/antdv-less-modify-var.js';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
@@ -39,11 +40,7 @@ export default defineConfig(({ command, mode }) => {
     css: {
       preprocessorOptions: {
         less: {
-          modifyVars: {
-            'text-color': '#333E48',
-            'primary-color': '#1DA57A',
-            'border-radius-base': '2px',
-          },
+          modifyVars: ModifyVar,
           javascriptEnabled: true,
         },
       },
