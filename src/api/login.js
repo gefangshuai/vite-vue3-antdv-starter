@@ -1,20 +1,17 @@
-import {reactive, ref} from "vue";
+import { reactive, ref } from 'vue';
 
-const formRef = ref(null)
-const logining = ref(false)
+const formRef = ref(null);
+const logining = ref(false);
 const formData = reactive({
-    loginName: null,
-    password: null
-})
+  loginName: null,
+  password: null,
+});
 const handleLogin = () => {
-    logining.value = true
-    setTimeout(() => {
-        logining.value = false
-    }, 1000)
-}
+  logining.value = true;
+  setTimeout(() => {
+    logining.value = false;
+    location.href = '/';
+  }, 1000);
+};
 
-export {
-    logining,
-    formData,
-    handleLogin
-}
+export { logining, formData, handleLogin };

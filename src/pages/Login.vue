@@ -25,7 +25,7 @@
 
 <script setup>
   import { ref } from 'vue';
-  import LoginForm from '@/views/login/LoginForm.vue';
+  import LoginForm from '@/pages/login/LoginForm.vue';
 
   const currentTab = ref('login');
 </script>
