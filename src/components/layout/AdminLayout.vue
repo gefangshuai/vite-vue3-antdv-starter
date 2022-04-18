@@ -98,9 +98,12 @@
 
   getAllMenuItems(props.menus);
   onBeforeMount(() => {
-    if (props.menus.length > 0) {
-      if (!props.menus.find((m) => m.key === route.name)) {
-        const firstMenu = props.menus[0];
+    if (state.allMenus.length > 0) {
+      if (!state.allMenus.find((m) => m.key === route.name)) {
+        console.warn('路由未匹配到菜单: ', route.name);
+        const firstMenu = state.allMenus.find(
+          (o) => !o.children || o.children.length === 0
+        );
         router.push(firstMenu.url).then((res) => {
           state.selectedKeys = [route.name];
         });

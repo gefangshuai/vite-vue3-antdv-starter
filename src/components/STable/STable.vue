@@ -36,14 +36,19 @@
       type: Boolean,
       default: true,
     },
+    inContainer: {
+      type: Boolean,
+      default: false,
+    },
   });
 
-  const getSlots = () => useSlots().default();
+  const getSlots = () =>
+    props.inContainer ? useSlots().default()[0].children : useSlots().default();
 
   const parseColumns = () => {
     store.tableConfig.columns = getSlots().map((o) => {
       const item = Object.assign({}, o.props, { dataIndex: o.props.prop });
-      if (o.children) {
+      if (o.children && o.children.default) {
         item.customRender = ({ text, record, index, column }) => {
           return o.children.default({ text, record, index, column });
         };
@@ -63,16 +68,7 @@
     }
   );
 
-  watch(
-    () => useSlots().default(),
-    () => {
-      parseColumns();
-    },
-    {
-      immediate: true,
-      deep: true,
-    }
-  );
+  parseColumns();
 
   const computedAutoHeight = () => {
     if (
@@ -87,7 +83,7 @@
           parseInt(computedStyle.paddingTop) +
           parseInt(computedStyle.paddingBottom);
         const tableHeaderHeight = 55; // 表头高度
-        const paginationHeight = 36 + 16 * 1; // 分页高度
+        const paginationHeight = 36 + 16 * (props.inContainer ? 2 : 1); // 分页高度
         let height =
           parentNode.getBoundingClientRect().height -
           padding -

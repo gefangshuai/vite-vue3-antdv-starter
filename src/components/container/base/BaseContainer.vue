@@ -1,5 +1,5 @@
 <template>
-  <a-card class="base-container">
+  <a-card class="base-container" title="基础">
     <template v-slot:title>
       <slot v-if="$slots.title" name="title"></slot>
       <span v-else>{{ title }}</span>
@@ -25,6 +25,13 @@
     display: flex;
     flex-direction: column;
 
+    :deep(.ant-card-head) {
+      min-height: 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+    }
     :deep(.ant-card-head-title) {
       padding: 8px 0;
       font-weight: normal;
