@@ -18,6 +18,10 @@ yarn dev
 - vuex
 - [frontend-utils](https://github.com/gefangshuai/frontend-utils)
 
+# Screenshots
+![](./img_1.png)
+![](./img_2.png)
+
 # See
 - [Vite + Vue3 学习要点汇总](https://corebook.notion.site/Vite-Vue3-1a2a4719724c4a749d3439640706363a)
 - https://v3.cn.vuejs.org/
