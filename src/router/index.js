@@ -19,7 +19,7 @@ const routes = [
 ].concat(pages);
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.VITE_BASE),
+  history: createWebHistory(import.meta.env.VITE_BASE || ''),
   routes,
 });
 

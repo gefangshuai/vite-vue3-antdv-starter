@@ -19,7 +19,7 @@ axios.interceptors.response.use(
 );
 
 const http = axios.create({
-  baseURL: import.meta.VITE_API_SERVER,
+  baseURL: import.meta.env.VITE_API_SERVER,
   timeout: 30000,
   headers: { 'X-App-Name': import.meta.env.VITE_APP_NAME },
 });
