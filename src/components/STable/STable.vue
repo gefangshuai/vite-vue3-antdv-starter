@@ -27,11 +27,23 @@
         }"
       ></slot>
     </template>
-    <template v-if="$slots.bodyCell" #bodyCell="{text, record, index, column}">
-      <slot name="bodyCell" v-bind="{text, record, index, column}"></slot>
+    <template
+      v-if="$slots.bodyCell"
+      #bodyCell="{ text, record, index, column }"
+    >
+      <slot name="bodyCell" v-bind="{ text, record, index, column }"></slot>
     </template>
-    <template v-if="$slots.headerCell" #headerCell="{title, column}">
-      <slot name="headerCell" v-bind="{title, column}"></slot>
+    <!--<template
+      v-if="$slots.expandedRowRender"
+      #expandedRowRender="{ record, index, indent, expanded }"
+    >
+      <slot
+        name="expandedRowRender"
+        v-bind="{ record, index, indent, expanded }"
+      ></slot>
+    </template>-->
+    <template v-if="$slots.headerCell" #headerCell="{ title, column }">
+      <slot name="headerCell" v-bind="{ title, column }"></slot>
     </template>
     <template v-if="$slots.emptyText" #emptyText>
       <slot name="emptyText"></slot>
