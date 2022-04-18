@@ -5,7 +5,7 @@
     <s-table-column title="生日" prop="birthday"></s-table-column>
     <s-table-column title="操作" prop="id" :width="100">
       <template v-slot="{ index, record, text }">
-        <a-button type="primary" size="small">操作</a-button>
+        <a-button type="primary" @click="handleClick(record)" size="small">操作</a-button>
       </template>
     </s-table-column>
   </s-table>
@@ -15,6 +15,7 @@
   import STable from '_comp/STable/STable.vue';
   import STableColumn from '_comp/STable/STableColumn.vue';
   import { reactive } from 'vue';
+  import {message} from "ant-design-vue";
 
   const tableConfig = reactive({
     dataSource: [
@@ -26,18 +27,21 @@
       },
       {
         id: 2,
-        name: '王五',
+        name: '李四',
         email: 'lisi@163.com',
         birthday: '1958-05-20',
       },
       {
         id: 3,
-        name: '李四4',
-        email: 'lisi@163.com',
+        name: '王五',
+        email: 'wangwu@163.com',
         birthday: '1958-05-20',
       },
     ],
   });
+  const handleClick = (record) => {
+    message.success(JSON.stringify(record))
+  }
 </script>
 
 <style scoped></style>

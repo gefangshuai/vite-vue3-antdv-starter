@@ -34,7 +34,7 @@
   watch(
     () => useSlots().default(),
     () => {
-      console.log('变化了');
+      console.log('变化了', useSlots().default());
       store.tableConfig.columns = useSlots()
         .default()
         .map((o) => {

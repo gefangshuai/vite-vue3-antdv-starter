@@ -6,8 +6,8 @@ const ModifyVar = {
 
   // height rules
   'height-base': '36px',
-  'height-lg': '45px',
-  'height-sm': '30px',
+  'height-lg': '42px',
+  'height-sm': '24px',
 };
 
 export { ModifyVar };
