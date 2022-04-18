@@ -1,10 +1,20 @@
 <template>
-  <p v-for="i in 100">Modal</p>
+  <a-button @click="openModal">Open Modal</a-button>
 </template>
 
-<script>
-  export default {
-    name: 'ExampleHome',
+<script setup>
+  import {defineAsyncComponent, shallowRef} from 'vue';
+  import { useSModel } from '@/components/SModal';
+
+  const openModal = () => {
+    useSModel().openModal({
+      modal: {
+        title: 'Modal Title',
+      },
+      component: shallowRef(
+        defineAsyncComponent(() => import('./ModalTest.vue'))
+      ),
+    });
   };
 </script>
 

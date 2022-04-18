@@ -24,9 +24,19 @@ const pages = [
         component: () => import('@/pages/example/ExampleTable.vue'),
       },
       {
+        name: 'ExampleContainer',
+        path: 'container',
+        component: () => import('@/pages/example/ExampleContainer.vue'),
+      },
+      {
         name: 'ExampleModal',
         path: 'modal',
         component: () => import('@/pages/example/ExampleModal.vue'),
+      },
+      {
+        name: 'ExampleUtils',
+        path: 'utils',
+        component: () => import('@/pages/example/ExampleUtils.vue'),
       },
     ],
   },
@@ -39,10 +49,21 @@ const menus = [
     url: '/example/home',
   },
   {
-    key: 'ExampleLayout',
+    key: 'ExampleContainer',
     icon: LayoutOutlined,
-    title: 'Layout',
-    url: '/example/layout',
+    title: 'Container',
+    children: [
+      {
+        key: 'ExampleBaseContainer',
+        title: 'BaseContainer',
+        url: '/example/container',
+      },
+      {
+        key: 'ExampleTableContainer',
+        title: 'TableContainer',
+        url: '/example/table-container',
+      }
+    ]
   },
   {
     key: 'ExampleTable',
