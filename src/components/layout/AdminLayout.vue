@@ -3,12 +3,16 @@
     <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
       <div class="logo" />
       <a-menu
+        v-model:openKeys="state.openKeys"
         v-model:selectedKeys="state.selectedKeys"
         theme="dark"
         mode="inline"
       >
         <template v-for="menu in menus" :key="menu.key">
-          <a-sub-menu v-if="menu.children && menu.children.length > 0">
+          <a-sub-menu
+            v-if="menu.children && menu.children.length > 0"
+            :key="menu.key"
+          >
             <template #icon>
               <component v-if="menu.icon" :is="menu.icon" />
             </template>
@@ -72,6 +76,8 @@
   const collapsed = ref(false);
   const state = reactive({
     selectedKeys: [],
+    openKeys: [],
+    allMenus: [],
   });
 
   const props = defineProps({
@@ -80,7 +86,17 @@
       default: [],
     },
   });
+  const getAllMenuItems = (menus, parent) => {
+    menus.forEach((m) => {
+      m.parent = parent;
+      state.allMenus.push(m);
+      if (m.children) {
+        getAllMenuItems(m.children, m);
+      }
+    });
+  };
 
+  getAllMenuItems(props.menus);
   onBeforeMount(() => {
     if (props.menus.length > 0) {
       if (!props.menus.find((m) => m.key === route.name)) {
@@ -90,6 +106,12 @@
         });
       }
     }
-    state.selectedKeys = [route.name];
+    const findMenu =
+      state.allMenus.find((o) => o.alias && o.alias.indexOf(route.name) > -1) ||
+      state.allMenus.find((o) => o.key === route.name);
+    state.selectedKeys = [findMenu.key];
+    if (findMenu.parent) {
+      state.openKeys = [findMenu.parent.key];
+    }
   });
 </script>

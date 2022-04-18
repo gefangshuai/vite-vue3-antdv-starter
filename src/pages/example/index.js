@@ -57,6 +57,7 @@ const menus = [
         key: 'ExampleBaseContainer',
         title: 'BaseContainer',
         url: '/example/container',
+        alias: ['ExampleContainer'],  // 别名，可以设置多个别名，匹配多个 Route Name
       },
       {
         key: 'ExampleTableContainer',
