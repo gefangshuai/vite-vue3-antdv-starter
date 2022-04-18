@@ -9,8 +9,8 @@ import { ModifyVar } from './conf/antdv-less-modify-var.js';
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd());
-  console.log('env', env);
   return {
+    base: env.VITE_BASE || '/',
     plugins: [
       vue(),
       Components({
