@@ -21,6 +21,6 @@ axios.interceptors.response.use(
 const http = axios.create({
   baseURL: '/',
   timeout: 30000,
-  headers: { 'X-Custom-Header': 'vite-vue3-antdv-starter' },
+  headers: { 'X-App-Name': import.meta.env.VITE_APP_NAME },
 });
 export default http;
