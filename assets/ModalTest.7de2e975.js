@@ -1,1 +1,0 @@
-import{o as e,f as s,g as a,i as c,B as n}from"./index.99812241.js";import{u as l}from"./ExampleModal.09422d9f.js";const r=c("Close Modal"),f={setup(_){const o=()=>{l().closeModal()};return(u,d)=>{const t=n;return e(),s(t,{onClick:o},{default:a(()=>[r]),_:1})}}};export{f as default};
