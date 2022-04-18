@@ -1,11 +1,14 @@
 <template>
-  <s-table :config="tableConfig">
-    <s-table-column title="用户名" prop="name"></s-table-column>
-    <s-table-column title="电子邮箱" prop="email"></s-table-column>
-    <s-table-column title="生日" prop="birthday"></s-table-column>
-    <s-table-column title="操作" prop="id" :width="100">
+  <s-table :config="tableConfig" ref="tableRef">
+    <s-table-column title="Username" prop="name"></s-table-column>
+    <s-table-column title="Email" prop="email"></s-table-column>
+    <s-table-column title="Avatar" prop="avatar"></s-table-column>
+    <s-table-column title="CreatedAt" prop="createdAt"></s-table-column>
+    <s-table-column title="Operation" prop="id" :width="100">
       <template v-slot="{ index, record, text }">
-        <a-button type="primary" @click="handleClick(record)" size="small">操作</a-button>
+        <a-button type="primary" @click="handleClick(record)" size="small"
+          >操作
+        </a-button>
       </template>
     </s-table-column>
   </s-table>
@@ -14,34 +17,31 @@
 <script setup>
   import STable from '_comp/STable/STable.vue';
   import STableColumn from '_comp/STable/STableColumn.vue';
-  import { reactive } from 'vue';
-  import {message} from "ant-design-vue";
+  import { onMounted, reactive, ref } from 'vue';
+  import { message } from 'ant-design-vue';
+  import http from '@/core/http.js';
 
+  const count = ref(1);
+  const tableRef = ref(null);
+  const loading = ref(false)
   const tableConfig = reactive({
-    dataSource: [
-      {
-        id: 1,
-        name: '张三',
-        email: 'zhangsan@163.com',
-        birthday: '1988-04-20',
-      },
-      {
-        id: 2,
-        name: '李四',
-        email: 'lisi@163.com',
-        birthday: '1958-05-20',
-      },
-      {
-        id: 3,
-        name: '王五',
-        email: 'wangwu@163.com',
-        birthday: '1958-05-20',
-      },
-    ],
+    dataSource: [],
+    loading: false
+  });
+
+  const loadUser = () => {
+    tableConfig.loading = true
+    http.get(`/api/users`).then((res) => {
+      tableConfig.dataSource = res.data;
+      tableConfig.loading = false
+    });
+  };
+  onMounted(() => {
+    loadUser();
   });
   const handleClick = (record) => {
-    message.success(JSON.stringify(record))
-  }
+    message.success(JSON.stringify(record));
+  };
 </script>
 
 <style scoped></style>
