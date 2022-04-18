@@ -112,9 +112,11 @@
     const findMenu =
       state.allMenus.find((o) => o.alias && o.alias.indexOf(route.name) > -1) ||
       state.allMenus.find((o) => o.key === route.name);
-    state.selectedKeys = [findMenu.key];
-    if (findMenu.parent) {
-      state.openKeys = [findMenu.parent.key];
+    if (findMenu) {
+      state.selectedKeys = [findMenu.key];
+      if (findMenu.parent) {
+        state.openKeys = [findMenu.parent.key];
+      }
     }
   });
 </script>
