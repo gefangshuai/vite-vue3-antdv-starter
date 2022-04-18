@@ -1,5 +1,42 @@
 <template>
-  <a-table class="s-table" ref="tableRef" v-bind="store.tableConfig"></a-table>
+  <a-table class="s-table" ref="tableRef" v-bind="store.tableConfig">
+    <template
+      v-if="$slots.customFilterIcon"
+      #customFilterIcon="{ filtered, column }"
+    >
+      <slot name="customFilterIcon" v-bind="{ filtered, column }"></slot>
+    </template>
+    <template
+      v-if="$slots.customFilterDropdown"
+      #customFilterDropdown="{
+        setSelectedKeys,
+        selectedKeys,
+        confirm,
+        clearFilters,
+        column,
+      }"
+    >
+      <slot
+        name="customFilterDropdown"
+        v-bind="{
+          setSelectedKeys,
+          selectedKeys,
+          confirm,
+          clearFilters,
+          column,
+        }"
+      ></slot>
+    </template>
+    <template v-if="$slots.bodyCell" #bodyCell="{text, record, index, column}">
+      <slot name="bodyCell" v-bind="{text, record, index, column}"></slot>
+    </template>
+    <template v-if="$slots.headerCell" #headerCell="{title, column}">
+      <slot name="headerCell" v-bind="{title, column}"></slot>
+    </template>
+    <template v-if="$slots.emptyText" #emptyText>
+      <slot name="emptyText"></slot>
+    </template>
+  </a-table>
   <slot></slot>
 </template>
 
