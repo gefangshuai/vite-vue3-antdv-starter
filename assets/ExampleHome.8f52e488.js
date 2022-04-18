@@ -1,1 +1,0 @@
-import{a0 as e,o as a,b as r,aP as o,F as t,h as n}from"./index.4f27c237.js";const s={name:"ExampleHome"};function c(m,p,l,_,u,d){return a(),r(t,null,o(100,f=>n("p",null,"Home")),64)}var x=e(s,[["render",c]]);export{x as default};
