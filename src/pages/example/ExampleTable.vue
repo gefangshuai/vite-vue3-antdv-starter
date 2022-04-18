@@ -26,7 +26,8 @@
   const loading = ref(false)
   const tableConfig = reactive({
     dataSource: [],
-    loading: true
+    loading: true,
+    // pagination: false
   });
 
   const loadUser = () => {

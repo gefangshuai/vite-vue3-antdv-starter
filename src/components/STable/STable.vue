@@ -1,15 +1,25 @@
 <template>
-  <a-table v-bind="store.tableConfig"></a-table>
+  <a-table class="s-table" ref="tableRef" v-bind="store.tableConfig"></a-table>
   <slot></slot>
 </template>
 
 <script setup>
-  import { computed, reactive, useSlots, watch, defineExpose } from 'vue';
+  import {
+    reactive,
+    useSlots,
+    watch,
+    defineExpose,
+    onMounted,
+    ref,
+    onBeforeUnmount,
+  } from 'vue';
+
+  const tableRef = ref(null);
 
   const store = reactive({
     tableConfig: {
       pagination: {
-        position: ['bottomCenter']
+        position: ['bottomCenter'],
       },
     },
     columns: [],
@@ -21,6 +31,10 @@
       default: {
         dataSource: [],
       },
+    },
+    autoHeight: {
+      type: Boolean,
+      default: true,
     },
   });
 
@@ -60,9 +74,61 @@
     }
   );
 
+  const computedAutoHeight = () => {
+    if (
+      props.autoHeight &&
+      tableRef.value.$el &&
+      tableRef.value.$el.parentNode
+    ) {
+      const parentNode = tableRef.value.$el.parentNode;
+      if (parentNode) {
+        const computedStyle = getComputedStyle(parentNode);
+        const padding =
+          parseInt(computedStyle.paddingTop) +
+          parseInt(computedStyle.paddingBottom);
+        const tableHeaderHeight = 55; // 表头高度
+        const paginationHeight = 36 + 16 * 1; // 分页高度
+        let height =
+          parentNode.getBoundingClientRect().height -
+          padding -
+          tableHeaderHeight;
+        if (store.tableConfig.pagination) {
+          height = height - paginationHeight;
+        }
+        store.tableConfig = Object.assign({}, store.tableConfig, {
+          scroll: {
+            x: true,
+            scrollToFirstRowOnChange: true,
+            y: height,
+          },
+        });
+      }
+    }
+  };
+
+  onMounted(() => {
+    computedAutoHeight();
+
+    window.addEventListener('resize', computedAutoHeight);
+  });
+
+  onBeforeUnmount(() => {
+    window.removeEventListener('reset', computedAutoHeight);
+  });
+
   defineExpose({
     parseColumns,
   });
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+  .s-table {
+    :deep(.ant-table) {
+      border-radius: 0px;
+    }
+
+    :deep(.ant-pagination) {
+      margin-bottom: 0;
+    }
+  }
+</style>
