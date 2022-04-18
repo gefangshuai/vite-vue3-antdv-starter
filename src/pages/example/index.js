@@ -19,6 +19,11 @@ const pages = [
         component: () => import('@/pages/example/ExampleHome.vue'),
       },
       {
+        name: 'ExampleTable',
+        path: 'table',
+        component: () => import('@/pages/example/ExampleTable.vue'),
+      },
+      {
         name: 'ExampleModal',
         path: 'modal',
         component: () => import('@/pages/example/ExampleModal.vue'),
