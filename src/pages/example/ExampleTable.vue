@@ -26,19 +26,16 @@
   const loading = ref(false)
   const tableConfig = reactive({
     dataSource: [],
-    loading: false
+    loading: true
   });
 
   const loadUser = () => {
-    tableConfig.loading = true
     http.get(`/api/users`).then((res) => {
       tableConfig.dataSource = res.data;
       tableConfig.loading = false
     });
   };
-  onMounted(() => {
-    loadUser();
-  });
+  loadUser();
   const handleClick = (record) => {
     message.success(JSON.stringify(record));
   };
