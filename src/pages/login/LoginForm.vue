@@ -41,7 +41,7 @@
 
 <script setup>
   import { logining, handleLogin, formData } from '_api/login';
-  import TextBlock from '_libs/partial/TextBlock.vue';
+  import TextBlock from '_libs/other/TextBlock.vue';
 </script>
 
 <style scoped></style>

@@ -1,5 +1,10 @@
 <template>
   <s-table :config="tableConfig" ref="tableRef">
+    <template #expandedRowRender="{ record }">
+      <p class="padding-left-lg">
+        {{ record.name }}
+      </p>
+    </template>
     <template #emptyText>
       <a-empty description="暂无数据"></a-empty>
     </template>
@@ -98,7 +103,7 @@
 <script setup>
   import STable from '_libs/s-table/STable.vue';
   import STableColumn from '_libs/s-table/STableColumn.vue';
-  import { onMounted, reactive, ref } from 'vue';
+  import { reactive, ref } from 'vue';
   import { message } from 'ant-design-vue';
   import http from '@/core/http.js';
   import { SearchOutlined } from '@ant-design/icons-vue';

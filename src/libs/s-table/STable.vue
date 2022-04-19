@@ -33,7 +33,7 @@
     >
       <slot name="bodyCell" v-bind="{ text, record, index, column }"></slot>
     </template>
-    <!--<template
+    <template
       v-if="$slots.expandedRowRender"
       #expandedRowRender="{ record, index, indent, expanded }"
     >
@@ -41,7 +41,7 @@
         name="expandedRowRender"
         v-bind="{ record, index, indent, expanded }"
       ></slot>
-    </template>-->
+    </template>
     <template v-if="$slots.headerCell" #headerCell="{ title, column }">
       <slot name="headerCell" v-bind="{ title, column }"></slot>
     </template>
@@ -66,11 +66,11 @@
 
   const store = reactive({
     tableConfig: {
+      rowKey: 'id',
       pagination: {
         position: ['bottomCenter'],
       },
     },
-    columns: [],
   });
 
   const props = defineProps({

@@ -1,5 +1,10 @@
 <template>
   <table-container :config="tableConfig" title="用户列表">
+    <template #expandedRowRender="{ record }">
+      <p class="padding-left-lg">
+        {{ record.name }}
+      </p>
+    </template>
     <template #emptyText>
       <a-empty description="暂无数据"></a-empty>
     </template>
