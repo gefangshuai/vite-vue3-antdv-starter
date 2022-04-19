@@ -34,6 +34,11 @@ const pages = [
         component: () => import('@/pages/example/ExampleTableContainer.vue'),
       },
       {
+        name: 'ExampleTreeContainer',
+        path: 'tree-container',
+        component: () => import('@/pages/example/ExampleTreeContainer.vue'),
+      },
+      {
         name: 'ExampleModal',
         path: 'modal',
         component: () => import('@/pages/example/ExampleModal.vue'),
@@ -62,14 +67,19 @@ const menus = [
         key: 'ExampleBaseContainer',
         title: 'BaseContainer',
         url: '/example/container',
-        alias: ['ExampleContainer'],  // 别名，可以设置多个别名，匹配多个 Route Name
+        alias: ['ExampleContainer'], // 别名，可以设置多个别名，匹配多个 Route Name
       },
       {
         key: 'ExampleTableContainer',
         title: 'TableContainer',
         url: '/example/table-container',
-      }
-    ]
+      },
+      {
+        key: 'ExampleTreeContainer',
+        title: 'TreeContainer',
+        url: '/example/tree-container',
+      },
+    ],
   },
   {
     key: 'ExampleTable',

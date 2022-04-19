@@ -8,6 +8,8 @@ const ModifyVar = {
   'height-base': '36px',
   'height-lg': '42px',
   'height-sm': '24px',
+
+  'card-padding-base': '16px'
 };
 
 export { ModifyVar };

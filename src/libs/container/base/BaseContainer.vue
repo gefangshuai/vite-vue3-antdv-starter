@@ -1,5 +1,5 @@
 <template>
-  <a-card class="base-container" title="基础">
+  <a-card class="base-container" :title="title">
     <template v-slot:title>
       <slot v-if="$slots.title" name="title"></slot>
       <span v-else>{{ title }}</span>
