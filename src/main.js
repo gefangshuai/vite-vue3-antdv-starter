@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import 'ant-design-vue/es/message/style/css';
 import '@/assets/less/main.less';
+import '@/core/dayjs';
 import App from './App.vue';
 import router from '@/router';
 import store from '@/store';
