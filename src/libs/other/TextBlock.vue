@@ -1,5 +1,5 @@
 <template>
-  <div :class="['text-block', spaceBetween ? 'text-block-spacebetween' : '']">
+  <div :class="['text-block', spaceBetween ? 'text-block-spacebetween' : '', inline? 'text-block-inline': '']">
     <slot></slot>
   </div>
 </template>
@@ -9,6 +9,7 @@
     name: 'TextBlock',
     props: {
       spaceBetween: Boolean,
+      inline: Boolean,
     },
   };
 </script>
@@ -20,6 +21,9 @@
     align-items: center;
     &.text-block-spacebetween {
       justify-content: space-between;
+    }
+    &.text-block-inline {
+      display: inline-flex;
     }
   }
 </style>

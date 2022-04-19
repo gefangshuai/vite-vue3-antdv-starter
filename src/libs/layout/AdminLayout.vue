@@ -38,27 +38,21 @@
     </a-layout-sider>
     <a-layout>
       <a-layout-header>
-        <div>
-          <MenuUnfoldOutlined
-            style="font-size: 18px"
-            v-if="collapsed"
-            class="trigger"
-            @click="() => (collapsed = !collapsed)"
-          />
-          <MenuUnfoldOutlined
-            style="font-size: 18px"
-            v-else
-            class="trigger"
-            @click="() => (collapsed = !collapsed)"
-          />
-        </div>
-        <div class="padding-right">
-          <a href="#" @click.prevent>
-            <a-avatar style="color: #f56a00; background-color: #fde3cf"
-              >U
-            </a-avatar>
-          </a>
-        </div>
+        <MenuUnfoldOutlined
+          style="font-size: 18px"
+          v-if="collapsed"
+          class="trigger"
+          @click="() => (collapsed = !collapsed)"
+        />
+        <MenuUnfoldOutlined
+          style="font-size: 18px"
+          v-else
+          class="trigger"
+          @click="() => (collapsed = !collapsed)"
+        />
+        <text-block inline>
+          <slot name="head-right"></slot>
+        </text-block>
       </a-layout-header>
       <text-block v-if="breadcrumb" class="breadcrumb" space-between>
         <a-breadcrumb>
@@ -82,12 +76,12 @@
 </template>
 
 <script setup>
-  import '@/assets/less/admin-layout/index.less';
+  import './adminLayout.less';
   import { MenuUnfoldOutlined, HomeOutlined } from '@ant-design/icons-vue';
   import { computed, onBeforeMount, reactive, ref } from 'vue';
   import { handleMenuClick } from '@/libs/layout/service/adminLayout.js';
   import { useRoute, useRouter } from 'vue-router';
-  import TextBlock from "_libs/other/TextBlock.vue";
+  import TextBlock from '_libs/other/TextBlock.vue';
 
   const route = useRoute();
   const router = useRouter();
