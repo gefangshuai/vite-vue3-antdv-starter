@@ -11,7 +11,6 @@
     <template v-slot:extra>
       <a-button type="primary">Add User</a-button>
     </template>
-    <p v-for="i in 100">Base Container</p>
   </base-container>
 </template>
 

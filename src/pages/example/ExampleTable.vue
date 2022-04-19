@@ -3,7 +3,6 @@
     <template #emptyText>
       <a-empty description="暂无数据"></a-empty>
     </template>
-
     <template #headerCell="{ column }">
       <template v-if="column.prop === 'name'">
         <span style="color: #1890ff">Name</span>
@@ -78,7 +77,7 @@
     ></s-table-column>
     <s-table-column title="Avatar" prop="avatar">
       <template v-slot="{ text }">
-        <a-avatar :src="text"></a-avatar>
+        <a-avatar></a-avatar>
       </template>
     </s-table-column>
     <s-table-column
