@@ -1,5 +1,8 @@
 <template>
   <admin-layout :menus="menus">
+    <template v-slot:breadcrumbExtra>
+      <a href="#">查看详情</a>
+    </template>
     <router-view />
   </admin-layout>
 </template>

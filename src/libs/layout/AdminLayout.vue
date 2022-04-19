@@ -60,7 +60,7 @@
           </a>
         </div>
       </a-layout-header>
-      <div v-if="breadcrumb" class="breadcrumb">
+      <text-block v-if="breadcrumb" class="breadcrumb" space-between>
         <a-breadcrumb>
           <a-breadcrumb-item>
             <router-link to="/">
@@ -72,7 +72,8 @@
             >{{ findMenu.title }}
           </a-breadcrumb-item>
         </a-breadcrumb>
-      </div>
+        <slot name="breadcrumbExtra"></slot>
+      </text-block>
       <a-layout-content>
         <slot></slot>
       </a-layout-content>
@@ -86,6 +87,7 @@
   import { computed, onBeforeMount, reactive, ref } from 'vue';
   import { handleMenuClick } from '@/libs/layout/service/adminLayout.js';
   import { useRoute, useRouter } from 'vue-router';
+  import TextBlock from "_libs/other/TextBlock.vue";
 
   const route = useRoute();
   const router = useRouter();
