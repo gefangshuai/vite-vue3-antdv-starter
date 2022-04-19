@@ -39,6 +39,12 @@ const pages = [
         component: () => import('@/pages/example/ExampleTreeContainer.vue'),
       },
       {
+        name: 'ExampleTreeTableContainer',
+        path: 'tree-table-container',
+        component: () =>
+          import('@/pages/example/ExampleTreeTableContainer.vue'),
+      },
+      {
         name: 'ExampleModal',
         path: 'modal',
         component: () => import('@/pages/example/ExampleModal.vue'),
@@ -78,6 +84,11 @@ const menus = [
         key: 'ExampleTreeContainer',
         title: 'TreeContainer',
         url: '/example/tree-container',
+      },
+      {
+        key: 'ExampleTreeTableContainer',
+        title: 'TreeTableContainer',
+        url: '/example/tree-table-container',
       },
     ],
   },

@@ -1,16 +1,28 @@
 <template>
-  <tree-container @treeSelect="handleTreeSelect"
+  <tree-container
+    @treeSelect="handleTreeSelect"
     title="TreeContainer"
     :tree-config="treeConfig"
   >
-    <example-table-container></example-table-container>
+    <template v-slot:extra>
+      <a-button type="primary">Add Item</a-button>
+    </template>
+    <a-result
+      status="success"
+      title="Successfully Purchased Cloud Server ECS!"
+      sub-title="Order number: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait."
+    >
+      <template #extra>
+        <a-button key="console" type="primary">Go Console</a-button>
+        <a-button key="buy">Buy Again</a-button>
+      </template>
+    </a-result>
   </tree-container>
 </template>
 
 <script setup>
   import TreeContainer from '_libs/container/tree/TreeContainer.vue';
-  import ExampleTableContainer from "@/pages/example/ExampleTableContainer.vue";
-  import {message} from "ant-design-vue";
+  import { message } from 'ant-design-vue';
 
   const treeConfig = {
     defaultExpandAll: true,
@@ -37,10 +49,10 @@
       },
     ],
   };
-  const handleTreeSelect = ({selectedKeys, e}) => {
-    console.log(selectedKeys, e)
-    message.success(`click ${selectedKeys}`)
-  }
+  const handleTreeSelect = ({ selectedKeys, e }) => {
+    console.log(selectedKeys, e);
+    message.success(`click ${selectedKeys}`);
+  };
 </script>
 
 <style scoped></style>

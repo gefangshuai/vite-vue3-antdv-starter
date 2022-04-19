@@ -1,5 +1,9 @@
 <template>
-  <base-container class="table-container">
+  <tree-container
+    class="tree-table-container"
+    :treeConfig="treeConfig"
+    @treeSelect="handleTreeSelect"
+  >
     <template v-slot:title>
       <slot v-if="$slots.title" name="title"></slot>
       <span v-else>{{ title }}</span>
@@ -7,7 +11,8 @@
     <template v-slot:extra v-if="$slots.extra">
       <slot name="extra"></slot>
     </template>
-    <s-table :config="config" in-container>
+
+    <s-table :config="tableConfig" in-container>
       <template
         v-if="$slots.customFilterIcon"
         #customFilterIcon="{ filtered, column }"
@@ -58,15 +63,19 @@
       </template>
       <slot></slot>
     </s-table>
-  </base-container>
+  </tree-container>
 </template>
 
 <script setup>
-  import BaseContainer from '@/libs/container/base/BaseContainer.vue';
-  import STable from '@/libs/s-table/STable.vue';
+  import TreeContainer from '_libs/container/tree/TreeContainer.vue';
+  import STable from '_libs/s-table/STable.vue';
 
   defineProps({
-    config: {
+    tableConfig: {
+      type: Object,
+      default: {},
+    },
+    treeConfig: {
       type: Object,
       default: {},
     },
@@ -74,22 +83,21 @@
       type: String,
     },
   });
+  const emitter = defineEmits(['treeSelect']);
+  const handleTreeSelect = ({ selectedKeys, e }) => {
+    emitter('treeSelect', { selectedKeys, e });
+  };
 </script>
 
 <style scoped lang="less">
   @import '../../../assets/less/vars';
 
-  .table-container {
-    :deep(.ant-card-body) {
-      padding: 0;
-    }
-
+  .tree-table-container {
     :deep(.ant-card-head) {
       z-index: 1;
     }
-
-    :deep(.ant-pagination) {
-      margin-bottom: 16px;
+    :deep(.tree-container-main) {
+      padding: 0;
     }
   }
 </style>
