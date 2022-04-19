@@ -20,7 +20,7 @@
 
 <script setup>
   import _assign from 'lodash/merge';
-  import emitter from '@/core/emitter';
+  import emitter from '@/core/emitter.js';
   import { ref, reactive, onMounted, onBeforeUnmount, watch } from 'vue';
   import { useRoute } from 'vue-router';
 
@@ -80,7 +80,7 @@
     emitter.on('bus_updateModal', updateModal);
     emitter.on('bus_closeModal', closeModal);
 
-    console.log('SModal ready!', emitter);
+    console.log('s-modal ready!', emitter);
   });
   onBeforeUnmount(() => {
     emitter.off('bus_openModal', openModal);

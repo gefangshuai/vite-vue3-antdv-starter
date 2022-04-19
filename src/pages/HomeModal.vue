@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-  import { closeModal } from '_comp/SModal';
+  import { closeModal } from '_comp/../libs/s-modal';
 </script>
 
 <style scoped></style>

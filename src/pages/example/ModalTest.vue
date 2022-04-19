@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-  import {useSModel} from "_comp/SModal/index.js";
+  import {useSModel} from "_libs/s-modal";
 
   const handleClose = () => {
     useSModel().closeModal()

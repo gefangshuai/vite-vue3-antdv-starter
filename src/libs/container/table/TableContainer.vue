@@ -53,8 +53,8 @@
 </template>
 
 <script setup>
-  import BaseContainer from '_comp/container/base/BaseContainer.vue';
-  import STable from '_comp/STable/STable.vue';
+  import BaseContainer from '@/libs/container/base/BaseContainer.vue';
+  import STable from '@/libs/s-table/STable.vue';
 
   defineProps({
     config: {

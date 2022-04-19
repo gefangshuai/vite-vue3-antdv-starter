@@ -96,8 +96,8 @@
 </template>
 
 <script setup>
-  import STable from '_comp/STable/STable.vue';
-  import STableColumn from '_comp/STable/STableColumn.vue';
+  import STable from '_libs/s-table/STable.vue';
+  import STableColumn from '_libs/s-table/STableColumn.vue';
   import { onMounted, reactive, ref } from 'vue';
   import { message } from 'ant-design-vue';
   import http from '@/core/http.js';

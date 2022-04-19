@@ -48,10 +48,10 @@
 </template>
 
 <script setup>
-  import TableContainer from '_comp/container/table/TableContainer.vue';
+  import TableContainer from '_libs/container/table/TableContainer.vue';
   import http from '@/core/http.js';
   import { reactive } from 'vue';
-  import STableColumn from '_comp/STable/STableColumn.vue';
+  import STableColumn from '_libs/s-table/STableColumn.vue';
   import { SearchOutlined, FilterFilled } from '@ant-design/icons-vue';
 
   const tableConfig = reactive({

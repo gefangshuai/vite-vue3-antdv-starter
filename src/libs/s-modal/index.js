@@ -1,4 +1,4 @@
-import emitter from '@/core/emitter';
+import emitter from '@/core/emitter.js';
 
 export const useSModel = () => {
   return {

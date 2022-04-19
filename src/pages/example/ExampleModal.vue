@@ -4,7 +4,7 @@
 
 <script setup>
   import {defineAsyncComponent, shallowRef} from 'vue';
-  import { useSModel } from '@/components/SModal';
+  import { useSModel } from '@/libs/s-modal';
 
   const openModal = () => {
     useSModel().openModal({

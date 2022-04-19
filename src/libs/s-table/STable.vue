@@ -57,7 +57,6 @@
     reactive,
     useSlots,
     watch,
-    defineExpose,
     onMounted,
     ref,
     onBeforeUnmount,

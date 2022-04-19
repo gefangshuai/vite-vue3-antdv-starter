@@ -36,6 +36,7 @@ export default defineConfig(({ command, mode }) => {
         '@': path.resolve(__dirname, 'src'),
         _comp: path.resolve(__dirname, 'src/components'),
         _api: path.resolve(__dirname, 'src/api'),
+        _libs: path.resolve(__dirname, 'src/libs'),
       },
     },
     css: {

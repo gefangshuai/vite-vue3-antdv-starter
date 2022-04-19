@@ -11,6 +11,9 @@
       "_comp/*": [
         "src/components/*"
       ],
+      "_libs/*": [
+        "src/libs/*"
+      ],
       "_api/*": [
         "src/api/*"
       ]

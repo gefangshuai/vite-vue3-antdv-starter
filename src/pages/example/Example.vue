@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-  import AdminLayout from '_comp/layout/AdminLayout.vue';
+  import AdminLayout from '_libs/layout/AdminLayout.vue';
   import { menus } from './index.js';
 </script>
 

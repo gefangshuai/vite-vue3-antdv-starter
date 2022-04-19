@@ -5,6 +5,9 @@
     <div v-if="loading">正在加载远程数据...</div>
     <div v-else>应用远程数据：{{ appInfo }}</div>
     <a-divider></a-divider>
+    <div class="margin-top margin-bottom text-bold">
+      所有组件封装见源代码：<code>src/components</code>
+    </div>
     <a-button type="primary" v-link="`/login`">返回登录</a-button>
     <a-divider type="vertical" />
     <a-button type="primary" v-link="`/example`">点击查看组件示例页</a-button>

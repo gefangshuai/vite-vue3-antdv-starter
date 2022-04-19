@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-  import BaseContainer from '_comp/container/base/BaseContainer.vue';
+  import BaseContainer from '_libs/container/base/BaseContainer.vue';
   import { LayoutOutlined } from '@ant-design/icons-vue';
 </script>
 
