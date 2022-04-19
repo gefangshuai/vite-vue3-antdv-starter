@@ -104,22 +104,12 @@
       return item;
     });
   };
-
-  watch(
-    () => props.config,
-    () => {
-      store.tableConfig = Object.assign({}, store.tableConfig, props.config);
-    },
-    {
-      deep: true,
-      immediate: true,
-    }
-  );
-
   parseColumns();
 
   const computedAutoHeight = () => {
     if (
+      tableRef &&
+      tableRef.value &&
       props.autoHeight &&
       tableRef.value.$el &&
       tableRef.value.$el.parentNode
@@ -163,6 +153,18 @@
   defineExpose({
     parseColumns,
   });
+
+  watch(
+    () => props.config,
+    () => {
+      store.tableConfig = Object.assign({}, store.tableConfig, props.config);
+      computedAutoHeight();
+    },
+    {
+      deep: true,
+      immediate: true,
+    }
+  );
 </script>
 
 <style scoped lang="less">
