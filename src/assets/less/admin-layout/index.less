@@ -12,6 +12,12 @@ html, body {
   right: 0;
   overflow: hidden;
 
+  &.admin-layout-has-breadcrumb {
+    .ant-layout-content {
+      padding-top: 0;
+    }
+  }
+
   .ant-layout-sider {
     display: flex;
     flex-direction: column;
@@ -46,5 +52,9 @@ html, body {
   .ant-layout-content {
     padding: @padding-md;
     overflow: auto;
+  }
+
+  .breadcrumb {
+    padding: @padding-md;
   }
 }

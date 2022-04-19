@@ -1,27 +1,29 @@
 <template>
-  <a-layout class="admin-layout">
+  <a-layout
+    :class="['admin-layout', breadcrumb ? 'admin-layout-has-breadcrumb' : '']"
+  >
     <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
       <div class="logo" />
       <div class="menu-container">
         <a-menu
-            v-model:openKeys="state.openKeys"
-            v-model:selectedKeys="state.selectedKeys"
-            theme="dark"
-            mode="inline"
+          v-model:openKeys="state.openKeys"
+          v-model:selectedKeys="state.selectedKeys"
+          theme="dark"
+          mode="inline"
         >
           <template v-for="menu in menus" :key="menu.key">
             <a-sub-menu
-                v-if="menu.children && menu.children.length > 0"
-                :key="menu.key"
+              v-if="menu.children && menu.children.length > 0"
+              :key="menu.key"
             >
               <template #icon>
                 <component v-if="menu.icon" :is="menu.icon" />
               </template>
               <template #title>{{ menu.title }}</template>
               <a-menu-item
-                  :key="subMenu.key"
-                  v-for="subMenu in menu.children"
-                  @click="handleMenuClick(subMenu)"
+                :key="subMenu.key"
+                v-for="subMenu in menu.children"
+                @click="handleMenuClick(subMenu)"
               >
                 {{ subMenu.title }}
               </a-menu-item>
@@ -58,6 +60,19 @@
           </a>
         </div>
       </a-layout-header>
+      <div v-if="breadcrumb" class="breadcrumb">
+        <a-breadcrumb>
+          <a-breadcrumb-item>
+            <router-link to="/">
+              <home-outlined />
+              {{ firstMenu.title }}
+            </router-link>
+          </a-breadcrumb-item>
+          <a-breadcrumb-item v-if="findMenu && findMenu.key !== firstMenu.key"
+            >{{ findMenu.title }}
+          </a-breadcrumb-item>
+        </a-breadcrumb>
+      </div>
       <a-layout-content>
         <slot></slot>
       </a-layout-content>
@@ -67,8 +82,8 @@
 
 <script setup>
   import '@/assets/less/admin-layout/index.less';
-  import { MenuUnfoldOutlined } from '@ant-design/icons-vue';
-  import { onBeforeMount, reactive, ref } from 'vue';
+  import { MenuUnfoldOutlined, HomeOutlined } from '@ant-design/icons-vue';
+  import { computed, onBeforeMount, reactive, ref } from 'vue';
   import { handleMenuClick } from '@/libs/layout/service/adminLayout.js';
   import { useRoute, useRouter } from 'vue-router';
 
@@ -87,7 +102,14 @@
       type: Array,
       default: [],
     },
+    breadcrumb: {
+      type: Boolean,
+      default: true,
+    },
   });
+
+  const firstMenu = computed(() => props.menus[0]);
+
   const getAllMenuItems = (menus, parent) => {
     menus.forEach((m) => {
       m.parent = parent;
@@ -99,6 +121,13 @@
   };
 
   getAllMenuItems(props.menus);
+
+  const findMenu = computed(() => {
+    return (
+      state.allMenus.find((o) => o.alias && o.alias.indexOf(route.name) > -1) ||
+      state.allMenus.find((o) => o.key === route.name)
+    );
+  });
   onBeforeMount(() => {
     if (state.allMenus.length > 0) {
       if (!state.allMenus.find((m) => m.key === route.name)) {
@@ -111,13 +140,11 @@
         });
       }
     }
-    const findMenu =
-      state.allMenus.find((o) => o.alias && o.alias.indexOf(route.name) > -1) ||
-      state.allMenus.find((o) => o.key === route.name);
-    if (findMenu) {
-      state.selectedKeys = [findMenu.key];
-      if (findMenu.parent) {
-        state.openKeys = [findMenu.parent.key];
+
+    if (findMenu && findMenu.value) {
+      state.selectedKeys = [findMenu.value.key];
+      if (findMenu.value.parent) {
+        state.openKeys = [findMenu.value.parent.key];
       }
     }
   });
