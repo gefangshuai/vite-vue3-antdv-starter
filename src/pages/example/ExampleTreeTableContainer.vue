@@ -1,5 +1,5 @@
 <template>
-  <tree-table-container :tree-config="treeConfig" :table-config="tableConfig">
+  <tree-table-container :tree-config="treeConfig" :table-config="tableConfig" title="Tree Table Container">
     <template #expandedRowRender="{ record }">
       <p class="padding-left-lg">
         {{ record.name }}

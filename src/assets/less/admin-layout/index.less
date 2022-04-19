@@ -1,7 +1,9 @@
 @import "../vars";
+
 html, body {
   overflow: hidden;
 }
+
 .admin-layout {
   position: fixed;
   top: 0;
@@ -11,10 +13,20 @@ html, body {
   overflow: hidden;
 
   .ant-layout-sider {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
     .logo {
       height: 32px;
       background: rgba(255, 255, 255, .2);
       margin: 16px;
+    }
+
+    .menu-container {
+      flex: 1;
+      height: calc(100% - 32px);
+      overflow: auto;
     }
   }
 

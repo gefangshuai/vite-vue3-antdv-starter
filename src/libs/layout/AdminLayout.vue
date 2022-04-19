@@ -2,35 +2,37 @@
   <a-layout class="admin-layout">
     <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
       <div class="logo" />
-      <a-menu
-        v-model:openKeys="state.openKeys"
-        v-model:selectedKeys="state.selectedKeys"
-        theme="dark"
-        mode="inline"
-      >
-        <template v-for="menu in menus" :key="menu.key">
-          <a-sub-menu
-            v-if="menu.children && menu.children.length > 0"
-            :key="menu.key"
-          >
-            <template #icon>
-              <component v-if="menu.icon" :is="menu.icon" />
-            </template>
-            <template #title>{{ menu.title }}</template>
-            <a-menu-item
-              :key="subMenu.key"
-              v-for="subMenu in menu.children"
-              @click="handleMenuClick(subMenu)"
+      <div class="menu-container">
+        <a-menu
+            v-model:openKeys="state.openKeys"
+            v-model:selectedKeys="state.selectedKeys"
+            theme="dark"
+            mode="inline"
+        >
+          <template v-for="menu in menus" :key="menu.key">
+            <a-sub-menu
+                v-if="menu.children && menu.children.length > 0"
+                :key="menu.key"
             >
-              {{ subMenu.title }}
+              <template #icon>
+                <component v-if="menu.icon" :is="menu.icon" />
+              </template>
+              <template #title>{{ menu.title }}</template>
+              <a-menu-item
+                  :key="subMenu.key"
+                  v-for="subMenu in menu.children"
+                  @click="handleMenuClick(subMenu)"
+              >
+                {{ subMenu.title }}
+              </a-menu-item>
+            </a-sub-menu>
+            <a-menu-item :key="menu.key" v-else @click="handleMenuClick(menu)">
+              <component v-if="menu.icon" :is="menu.icon" />
+              <span>{{ menu.title }}</span>
             </a-menu-item>
-          </a-sub-menu>
-          <a-menu-item :key="menu.key" v-else @click="handleMenuClick(menu)">
-            <component v-if="menu.icon" :is="menu.icon" />
-            <span>{{ menu.title }}</span>
-          </a-menu-item>
-        </template>
-      </a-menu>
+          </template>
+        </a-menu>
+      </div>
     </a-layout-sider>
     <a-layout>
       <a-layout-header>

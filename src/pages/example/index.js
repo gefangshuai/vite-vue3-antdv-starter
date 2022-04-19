@@ -45,6 +45,12 @@ const pages = [
           import('@/pages/example/ExampleTreeTableContainer.vue'),
       },
       {
+        name: 'ExampleExtraTableContainer',
+        path: 'extra-container/extra-table-container',
+        component: () =>
+            import('@/pages/example/extra/ExampleExtraTableContainer.vue'),
+      },
+      {
         name: 'ExampleModal',
         path: 'modal',
         component: () => import('@/pages/example/ExampleModal.vue'),
@@ -91,6 +97,18 @@ const menus = [
         url: '/example/tree-table-container',
       },
     ],
+  },
+  {
+    key: 'ExtraContainer',
+    icon: LayoutOutlined,
+    title: 'ExtraContainer',
+    children: [
+      {
+        key: 'ExampleExtraTableContainer',
+        title: 'ExtraTableContainer',
+        url: '/example/extra-container/extra-table-container'
+      }
+    ]
   },
   {
     key: 'ExampleTable',
