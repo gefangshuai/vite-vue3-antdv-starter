@@ -5,11 +5,8 @@ const ModifyVar = {
   'border-radius-base': '4px',
 
   // height rules
-  'height-base': '36px',
-  'height-lg': '42px',
-  'height-sm': '24px',
 
-  'card-padding-base': '16px'
+  'card-padding-base': '24px'
 };
 
 export { ModifyVar };

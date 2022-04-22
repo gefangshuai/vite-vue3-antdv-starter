@@ -123,16 +123,18 @@
 
   onBeforeMount(() => {
     if (state.allMenus.length > 0) {
-      if (!findMenu) {
+      if (!findMenu.value) {
         const firstMenu = state.allMenus.find(
           (o) => !o.children || o.children.length === 0
         );
+        console.log('firstMenu', firstMenu)
         router.push(firstMenu.url).then((res) => {
           state.selectedKeys = [route.name];
         });
       }
     }
 
+    console.log('findMenu', findMenu.value)
     if (findMenu && findMenu.value) {
       state.selectedKeys = [findMenu.value.key];
       if (findMenu.value.parent) {
