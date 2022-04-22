@@ -22,41 +22,81 @@ const pages = [
         name: 'ExampleTable',
         path: 'table',
         component: () => import('@/pages/example/ExampleTable.vue'),
+        breadcrumb: [
+          {
+            title: 'ExampleTable',
+          },
+        ],
       },
       {
         name: 'ExampleContainer',
+        breadcrumb: [
+          {
+            title: 'ExampleContainer',
+          },
+        ],
         path: 'container',
         component: () => import('@/pages/example/ExampleContainer.vue'),
       },
       {
         name: 'ExampleTableContainer',
+        breadcrumb: [
+          {
+            title: 'ExampleTableContainer',
+          },
+        ],
         path: 'table-container',
         component: () => import('@/pages/example/ExampleTableContainer.vue'),
       },
       {
         name: 'ExampleTreeContainer',
+        breadcrumb: [
+          {
+            title: 'ExampleTreeContainer',
+          },
+        ],
         path: 'tree-container',
         component: () => import('@/pages/example/ExampleTreeContainer.vue'),
       },
       {
         name: 'ExampleTreeTableContainer',
+        breadcrumb: [
+          {
+            title: 'ExampleTreeTableContainer',
+          },
+        ],
         path: 'tree-table-container',
         component: () =>
           import('@/pages/example/ExampleTreeTableContainer.vue'),
       },
       {
         name: 'ExampleExtraTableContainer',
+        breadcrumb: [
+          {
+            title: 'ExampleExtraTableContainer',
+          },
+        ],
         path: 'extra-container/extra-table-container',
         component: () =>
             import('@/pages/example/extra/ExampleExtraTableContainer.vue'),
       },
       {
         name: 'ExampleModal',
+        breadcrumb: [
+          {
+            title: 'ExampleModal',
+          },
+        ],
         path: 'modal',
         component: () => import('@/pages/example/ExampleModal.vue'),
       },
       {
         name: 'ExampleUtils',
+        breadcrumb: [
+          {
+            title: 'ExampleUtils',
+          },
+        ],
         path: 'utils',
         component: () => import('@/pages/example/ExampleUtils.vue'),
       },
