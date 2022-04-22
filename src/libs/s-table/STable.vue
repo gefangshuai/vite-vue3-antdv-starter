@@ -148,7 +148,7 @@
           padding -
           tableHeaderHeight;
         if (store.tableConfig.pagination) {
-          const paginationHeight = 32 + 16; // 分页高度
+          const paginationHeight = 32 + 16 * (props.inContainer ? 2 : 1); // 分页高度
           height = height - paginationHeight;
         }
         store.tableConfig = _assign(store.tableConfig, {
