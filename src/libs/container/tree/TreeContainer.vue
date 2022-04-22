@@ -1,5 +1,5 @@
 <template>
-  <base-container class="tree-container">
+  <base-container class="tree-container" :hide-head="hideHead">
     <template v-slot:title>
       <slot v-if="$slots.title" name="title"></slot>
       <span v-else>{{ title }}</span>
@@ -8,8 +8,49 @@
       <slot name="extra"></slot>
     </template>
 
-    <div class="tree-container-left" :style="{width: siderWidth + 'px'}">
-      <a-tree v-bind="treeConfig" @select="handleTreeNodeSelect"></a-tree>
+    <div class="tree-container-left" :style="{ width: siderWidth + 'px' }">
+      <a-tree v-bind="treeConfig" @select="handleTreeNodeSelect">
+        <template #icon="{ key, selected }" v-if="$slots.icon">
+          <slot name="icon" v-bind="{key, selected}"></slot>
+        </template>
+        <template
+          v-if="$slots.switcherIcon"
+          #switcherIcon="{
+            active,
+            checked,
+            expanded,
+            loading,
+            selected,
+            halfChecked,
+            title,
+            key,
+            children,
+            dataRef,
+            data,
+            defaultIcon,
+            switcherCls,
+          }"
+        >
+          <slot
+            name="switcherIcon"
+            v-bind="{
+              active,
+              checked,
+              expanded,
+              loading,
+              selected,
+              halfChecked,
+              title,
+              key,
+              children,
+              dataRef,
+              data,
+              defaultIcon,
+              switcherCls,
+            }"
+          ></slot>
+        </template>
+      </a-tree>
     </div>
     <div class="tree-container-main">
       <slot></slot>
@@ -29,38 +70,47 @@
      */
     siderWidth: {
       type: [Number, String],
-      default: 300
+      default: 300,
     },
     treeConfig: {
-      type: Object
-    }
+      type: Object,
+    },
+    hideHead: {
+      type: Boolean,
+    },
   });
 
-  const emitter = defineEmits(['treeSelect'])
+  const emitter = defineEmits(['treeSelect']);
 
   const handleTreeNodeSelect = (selectedKeys, e) => {
-    emitter('treeSelect', {selectedKeys, e})
-  }
+    emitter('treeSelect', { selectedKeys, e });
+  };
 </script>
 
 <style scoped lang="less">
-  @import "../../../assets/less/vars";
+  @import '../../../assets/less/vars';
+
   .tree-container {
     :deep(.ant-card-body) {
       padding: 0;
       display: flex;
       flex-direction: row;
     }
+
     .tree-container-left {
       height: 100%;
       border-right: 1px solid @border-color-split;
       //width: 300px;
+      flex-shrink: 0;
     }
+
     .tree-container-main {
       flex: 1;
     }
-    .tree-container-left, .tree-container-main {
-      padding: @padding-md;
+
+    .tree-container-left,
+    .tree-container-main {
+      padding: @padding-lg;
     }
   }
 </style>

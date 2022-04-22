@@ -1,54 +1,60 @@
 <template>
-  <a-table class="s-table" ref="tableRef" v-bind="store.tableConfig">
-    <template
-      v-if="$slots.customFilterIcon"
-      #customFilterIcon="{ filtered, column }"
-    >
-      <slot name="customFilterIcon" v-bind="{ filtered, column }"></slot>
-    </template>
-    <template
-      v-if="$slots.customFilterDropdown"
-      #customFilterDropdown="{
-        setSelectedKeys,
-        selectedKeys,
-        confirm,
-        clearFilters,
-        column,
-      }"
-    >
-      <slot
-        name="customFilterDropdown"
-        v-bind="{
+  <div
+    class="s-table"
+    ref="tableRef"
+    :style="{ height: store.containerHeight, width: store.containerWidth }"
+  >
+    <a-table v-bind="store.tableConfig" @change="handleChange">
+      <template
+        v-if="$slots.customFilterIcon"
+        #customFilterIcon="{ filtered, column }"
+      >
+        <slot name="customFilterIcon" v-bind="{ filtered, column }"></slot>
+      </template>
+      <template
+        v-if="$slots.customFilterDropdown"
+        #customFilterDropdown="{
           setSelectedKeys,
           selectedKeys,
           confirm,
           clearFilters,
           column,
         }"
-      ></slot>
-    </template>
-    <template
-      v-if="$slots.bodyCell"
-      #bodyCell="{ text, record, index, column }"
-    >
-      <slot name="bodyCell" v-bind="{ text, record, index, column }"></slot>
-    </template>
-    <template
-      v-if="$slots.expandedRowRender"
-      #expandedRowRender="{ record, index, indent, expanded }"
-    >
-      <slot
-        name="expandedRowRender"
-        v-bind="{ record, index, indent, expanded }"
-      ></slot>
-    </template>
-    <template v-if="$slots.headerCell" #headerCell="{ title, column }">
-      <slot name="headerCell" v-bind="{ title, column }"></slot>
-    </template>
-    <template v-if="$slots.emptyText" #emptyText>
-      <slot name="emptyText"></slot>
-    </template>
-  </a-table>
+      >
+        <slot
+          name="customFilterDropdown"
+          v-bind="{
+            setSelectedKeys,
+            selectedKeys,
+            confirm,
+            clearFilters,
+            column,
+          }"
+        ></slot>
+      </template>
+      <template
+        v-if="$slots.bodyCell"
+        #bodyCell="{ text, record, index, column }"
+      >
+        <slot name="bodyCell" v-bind="{ text, record, index, column }"></slot>
+      </template>
+      <template
+        v-if="$slots.expandedRowRender"
+        #expandedRowRender="{ record, index, indent, expanded }"
+      >
+        <slot
+          name="expandedRowRender"
+          v-bind="{ record, index, indent, expanded }"
+        ></slot>
+      </template>
+      <template v-if="$slots.headerCell" #headerCell="{ title, column }">
+        <slot name="headerCell" v-bind="{ title, column }"></slot>
+      </template>
+      <template v-if="$slots.emptyText" #emptyText>
+        <slot name="emptyText"></slot>
+      </template>
+    </a-table>
+  </div>
   <slot></slot>
 </template>
 
@@ -61,23 +67,36 @@
     ref,
     onBeforeUnmount,
   } from 'vue';
+  import _assign from 'lodash/assign';
 
   const tableRef = ref(null);
 
   const store = reactive({
+    containerHeight: 'auto',
+    containerWidth: 'auto',
     tableConfig: {
       rowKey: 'id',
       pagination: {
         position: ['bottomCenter'],
+        showSizeChanger: true,
+        showQuickJumper: true,
       },
     },
   });
+
+  const defaultPagination = {
+    position: ['bottomCenter'],
+    showSizeChanger: true,
+    showQuickJumper: true,
+  };
 
   const props = defineProps({
     config: {
       type: Object,
       default: {
         dataSource: [],
+        rowKey: 'id',
+        pagination: false,
       },
     },
     autoHeight: {
@@ -95,7 +114,7 @@
 
   const parseColumns = () => {
     store.tableConfig.columns = getSlots().map((o) => {
-      const item = Object.assign({}, o.props, { dataIndex: o.props.prop });
+      const item = _assign(o.props, { dataIndex: o.props.prop });
       if (o.children && o.children.default) {
         item.customRender = ({ text, record, index, column }) => {
           return o.children.default({ text, record, index, column });
@@ -111,38 +130,47 @@
       tableRef &&
       tableRef.value &&
       props.autoHeight &&
-      tableRef.value.$el &&
-      tableRef.value.$el.parentNode
+      tableRef.value.parentNode
     ) {
-      const parentNode = tableRef.value.$el.parentNode;
+      const parentNode = tableRef.value.parentNode;
       if (parentNode) {
         const computedStyle = getComputedStyle(parentNode);
-        const padding =
-          parseInt(computedStyle.paddingTop) +
-          parseInt(computedStyle.paddingBottom);
-        const tableHeaderHeight = 55; // 表头高度
-        const paginationHeight = 36 + 16 * (props.inContainer ? 2 : 1); // 分页高度
+        const offsetTop =
+          tableRef.value.getBoundingClientRect().top -
+          parentNode.getBoundingClientRect().top;
+        const padding = parseInt(computedStyle.paddingBottom);
+        const tableHeaderHeight = tableRef.value
+          .querySelector('.ant-table-thead')
+          .getBoundingClientRect().height; // 表头高度
         let height =
           parentNode.getBoundingClientRect().height -
+          offsetTop -
           padding -
           tableHeaderHeight;
         if (store.tableConfig.pagination) {
+          const paginationHeight = 32 + 16; // 分页高度
           height = height - paginationHeight;
         }
-        store.tableConfig = Object.assign({}, store.tableConfig, {
+        store.tableConfig = _assign(store.tableConfig, {
           scroll: {
-            x: true,
+            x: 'max-content',
             scrollToFirstRowOnChange: true,
             y: height,
           },
         });
+
+        const width =
+          parentNode.getBoundingClientRect().width -
+          parseInt(computedStyle.paddingLeft) -
+          parseInt(computedStyle.paddingRight);
+        store.containerHeight = `${height}px`;
+        store.containerWidth = `${width}px`;
       }
     }
   };
 
   onMounted(() => {
     computedAutoHeight();
-
     window.addEventListener('resize', computedAutoHeight);
   });
 
@@ -154,10 +182,21 @@
     parseColumns,
   });
 
+  const parseConfig = () => {
+    store.tableConfig = _assign(store.tableConfig, props.config);
+    // 处理默认分页
+    if (store.tableConfig.pagination) {
+      Object.keys(defaultPagination).forEach((key) => {
+        store.tableConfig.pagination[key] =
+          store.tableConfig.pagination[key] || defaultPagination[key];
+      });
+    }
+  };
+
   watch(
     () => props.config,
     () => {
-      store.tableConfig = Object.assign({}, store.tableConfig, props.config);
+      parseConfig();
       computedAutoHeight();
     },
     {
@@ -165,6 +204,10 @@
       immediate: true,
     }
   );
+  const emitter = defineEmits(['change']);
+  const handleChange = (pagination, filters, sorter) => {
+    emitter('change', { pagination, filters, sorter });
+  };
 </script>
 
 <style scoped lang="less">

@@ -62,10 +62,16 @@
 </template>
 
 <script setup>
-  import { tableConfig, loadData } from './service/extraTableContainer.js';
+  import { loadTableData } from '../../s-table/service/tableService.js';
   import BaseContainer from '_libs/container/base/BaseContainer.vue';
   import STable from '_libs/s-table/STable.vue';
+  import { reactive } from 'vue/dist/vue.js';
 
+  const tableConfig = reactive({
+    loading: true,
+    dataSource: [],
+    pagination: true,
+  });
   const props = defineProps({
     url: {
       type: String,
@@ -76,7 +82,11 @@
     },
   });
 
-  loadData(props.url);
+  loadTableData({ url: props.url }).then((data, dataSource, pagination) => {
+    tableConfig.loading = false
+    tableConfig.dataSource = dataSource
+    tableConfig.pagination = pagination
+  });
 </script>
 
 <style scoped lang="less">

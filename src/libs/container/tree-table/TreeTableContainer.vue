@@ -1,9 +1,52 @@
 <template>
   <tree-container
+    :sider-width="siderWidth"
+    :hide-head="hideHead"
     class="tree-table-container"
     :treeConfig="treeConfig"
     @treeSelect="handleTreeSelect"
   >
+    <!--Slot-->
+    <template #icon="{ key, selected }" v-if="$slots.treeIcon">
+      <slot name="treeIcon" v-bind="{ key, selected }"></slot>
+    </template>
+    <template
+      v-if="$slots.switcherIcon"
+      #switcherIcon="{
+        active,
+        checked,
+        expanded,
+        loading,
+        selected,
+        halfChecked,
+        title,
+        key,
+        children,
+        dataRef,
+        data,
+        defaultIcon,
+        switcherCls,
+      }"
+    >
+      <slot
+        name="switcherIcon"
+        v-bind="{
+          active,
+          checked,
+          expanded,
+          loading,
+          selected,
+          halfChecked,
+          title,
+          key,
+          children,
+          dataRef,
+          data,
+          defaultIcon,
+          switcherCls,
+        }"
+      ></slot>
+    </template>
     <template v-slot:title>
       <slot v-if="$slots.title" name="title"></slot>
       <span v-else>{{ title }}</span>
@@ -11,8 +54,10 @@
     <template v-slot:extra v-if="$slots.extra">
       <slot name="extra"></slot>
     </template>
+    <!--End-->
+    <slot name="mainHead"></slot>
 
-    <s-table :config="tableConfig" in-container>
+    <s-table :config="tableConfig" in-container @change="handleTableChange">
       <template
         v-if="$slots.customFilterIcon"
         #customFilterIcon="{ filtered, column }"
@@ -70,7 +115,7 @@
   import TreeContainer from '_libs/container/tree/TreeContainer.vue';
   import STable from '_libs/s-table/STable.vue';
 
-  defineProps({
+  const prop = defineProps({
     tableConfig: {
       type: Object,
       default: {},
@@ -79,13 +124,25 @@
       type: Object,
       default: {},
     },
+    siderWidth: {
+      type: [Number, String],
+      default: 300,
+    },
     title: {
       type: String,
     },
+    hideHead: {
+      type: Boolean,
+    },
   });
-  const emitter = defineEmits(['treeSelect']);
+
+  const emitter = defineEmits(['treeSelect', 'tableChange']);
   const handleTreeSelect = ({ selectedKeys, e }) => {
     emitter('treeSelect', { selectedKeys, e });
+  };
+
+  const handleTableChange = (data) => {
+    emitter('tableChange', data);
   };
 </script>
 
@@ -93,11 +150,16 @@
   @import '../../../assets/less/vars';
 
   .tree-table-container {
+    .tree-table-container-main {
+      padding: @padding-lg;
+    }
+
     :deep(.ant-card-head) {
       z-index: 1;
     }
+
     :deep(.tree-container-main) {
-      padding: 0;
+      padding: @padding-lg;
     }
   }
 </style>

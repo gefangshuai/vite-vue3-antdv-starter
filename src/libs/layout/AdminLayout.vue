@@ -2,8 +2,13 @@
   <a-layout
     :class="['admin-layout', breadcrumb ? 'admin-layout-has-breadcrumb' : '']"
   >
-    <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
-      <div class="logo" />
+    <a-layout-sider
+      v-model:collapsed="collapsed"
+      :trigger="null"
+      collapsible
+      :width="siderWidth"
+    >
+      <div class="logo">运营管理后台</div>
       <div class="menu-container">
         <a-menu
           v-model:openKeys="state.openKeys"
@@ -38,32 +43,18 @@
     </a-layout-sider>
     <a-layout>
       <a-layout-header>
-        <MenuUnfoldOutlined
-          style="font-size: 18px"
-          v-if="collapsed"
-          class="trigger"
-          @click="() => (collapsed = !collapsed)"
-        />
-        <MenuUnfoldOutlined
-          style="font-size: 18px"
-          v-else
-          class="trigger"
-          @click="() => (collapsed = !collapsed)"
-        />
+        <text-block inline>
+          <slot name="head-left"></slot>
+        </text-block>
         <text-block inline>
           <slot name="head-right"></slot>
         </text-block>
       </a-layout-header>
       <text-block v-if="breadcrumb" class="breadcrumb" space-between>
         <a-breadcrumb>
-          <a-breadcrumb-item>
-            <router-link to="/">
-              <home-outlined />
-              {{ firstMenu.title }}
-            </router-link>
-          </a-breadcrumb-item>
-          <a-breadcrumb-item v-if="findMenu && findMenu.key !== firstMenu.key"
-            >{{ findMenu.title }}
+          <a-breadcrumb-item v-for="item in breadcrumbItems" :key="item.title">
+            <router-link :to="item.url" v-if="item.url">{{item.title}}</router-link>
+            <span v-else>{{item.title}}</span>
           </a-breadcrumb-item>
         </a-breadcrumb>
         <slot name="breadcrumbExtra"></slot>
@@ -77,7 +68,6 @@
 
 <script setup>
   import './adminLayout.less';
-  import { MenuUnfoldOutlined, HomeOutlined } from '@ant-design/icons-vue';
   import { computed, onBeforeMount, reactive, ref } from 'vue';
   import { handleMenuClick } from '@/libs/layout/service/adminLayout.js';
   import { useRoute, useRouter } from 'vue-router';
@@ -85,6 +75,7 @@
 
   const route = useRoute();
   const router = useRouter();
+  const breadcrumbItems = computed(() => route.meta.breadcrumb);
 
   const collapsed = ref(false);
   const state = reactive({
@@ -102,9 +93,11 @@
       type: Boolean,
       default: true,
     },
+    siderWidth: {
+      type: [Number, String],
+      default: 200,
+    },
   });
-
-  const firstMenu = computed(() => props.menus[0]);
 
   const getAllMenuItems = (menus, parent) => {
     menus.forEach((m) => {
@@ -119,15 +112,18 @@
   getAllMenuItems(props.menus);
 
   const findMenu = computed(() => {
-    return (
-      state.allMenus.find((o) => o.alias && o.alias.indexOf(route.name) > -1) ||
-      state.allMenus.find((o) => o.key === route.name)
+    return state.allMenus.find(
+      (o) =>
+        (o.alias && o.alias.indexOf(route.name) > -1) ||
+        o.key === route.name ||
+        (o.routes && o.routes.indexOf(route.name) > -1)
     );
   });
+
+
   onBeforeMount(() => {
     if (state.allMenus.length > 0) {
-      if (!state.allMenus.find((m) => m.key === route.name)) {
-        console.warn('路由未匹配到菜单: ', route.name);
+      if (!findMenu) {
         const firstMenu = state.allMenus.find(
           (o) => !o.children || o.children.length === 0
         );
