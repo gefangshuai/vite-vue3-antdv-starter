@@ -1,0 +1,1 @@
+import{_ as e,o as a,b as r,aP as t,F as n,h as o}from"./index.2d796948.js";const s={name:"ExampleHome"};function m(p,c,l,u,_,i){return a(),r(n,null,t(100,d=>o("p",null,"Home")),64)}var f=e(s,[["render",m],["__file","/home/runner/work/vite-vue3-antdv-starter/vite-vue3-antdv-starter/src/pages/example/ExampleHome.vue"]]);export{f as default};
