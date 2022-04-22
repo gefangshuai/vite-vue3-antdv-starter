@@ -65,7 +65,7 @@
   import { loadTableData } from '../../s-table/service/tableService.js';
   import BaseContainer from '_libs/container/base/BaseContainer.vue';
   import STable from '_libs/s-table/STable.vue';
-  import { reactive } from 'vue/dist/vue.js';
+  import { reactive } from 'vue';
 
   const tableConfig = reactive({
     loading: true,
