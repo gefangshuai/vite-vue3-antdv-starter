@@ -1,28 +1,25 @@
-import { fetchAppInfo } from '@/api/app';
-
 export default {
   namespaced: true,
   state: {
-    app: undefined,
+    info: undefined,
+    pageLoading: true,
   },
   getters: {
-    appGet: (state) => state.app,
+    infoGet: (state) => state.info,
+    pageLoadingGet: (state) => state.pageLoading,
   },
   actions: {
-    loadAppAction({ commit }) {
-      return new Promise((resolve, reject) => {
-        fetchAppInfo()
-          .then((res) => {
-            commit('loadAppAction', res.data);
-            resolve(res.data);
-          })
-          .catch(reject);
-      });
+    loadAppInfoAction({commit}) {},
+    changePageLoadingAction({ commit }, { loading }) {
+      commit('changePageLoadingAction', loading);
     },
   },
   mutations: {
-    loadAppAction(state, app) {
-      state.app = app;
+    loadAppInfoAction(state, info) {
+      state.info = info;
+    },
+    changePageLoadingAction(state, loading) {
+      state.pageLoading = loading;
     },
   },
 };

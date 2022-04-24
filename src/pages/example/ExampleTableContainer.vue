@@ -27,9 +27,9 @@
     <template v-slot:extra>
       <a-button type="primary">Add User</a-button>
     </template>
-    <s-table-column
+    <a-table-column
       title="Username"
-      prop="name"
+      data-index="name"
       :filters="[
         {
           text: 'A',
@@ -45,10 +45,10 @@
         },
       ]"
       :onFilter="handleEmailFilter"
-    ></s-table-column>
-    <s-table-column title="Email" prop="email"></s-table-column>
-    <s-table-column title="Avatar" prop="avatar"></s-table-column>
-    <s-table-column title="CreatedAt" prop="createdAt"></s-table-column>
+    ></a-table-column>
+    <a-table-column title="Email" data-index="email"></a-table-column>
+    <a-table-column title="Avatar" data-index="avatar"></a-table-column>
+    <a-table-column title="CreatedAt" data-index="createdAt"></a-table-column>
   </table-container>
 </template>
 
@@ -56,7 +56,6 @@
   import TableContainer from '_libs/container/table/TableContainer.vue';
   import http from '@/core/http.js';
   import { reactive } from 'vue';
-  import STableColumn from '_libs/s-table/STableColumn.vue';
   import { SearchOutlined, FilterFilled } from '@ant-design/icons-vue';
 
   const tableConfig = reactive({
@@ -70,7 +69,7 @@
     });
   };
   const handleEmailFilter = (value, record) => {
-    return record.name.startsWith(value)
+    return record.name.startsWith(value);
   };
   loadUser();
 </script>

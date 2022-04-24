@@ -7,7 +7,12 @@
     <template v-slot:extra v-if="$slots.extra">
       <slot name="extra"></slot>
     </template>
-    <s-table :config="config" in-container>
+    <a-table
+      v-bind="store.tableConfig"
+      ref="tableRef"
+      class="table-fix-pagination"
+      @change="handleTableChange"
+    >
       <template
         v-if="$slots.customFilterIcon"
         #customFilterIcon="{ filtered, column }"
@@ -57,23 +62,45 @@
         <slot name="emptyText"></slot>
       </template>
       <slot></slot>
-    </s-table>
+    </a-table>
   </base-container>
 </template>
 
 <script setup>
   import BaseContainer from '@/libs/container/base/BaseContainer.vue';
-  import STable from '@/libs/s-table/STable.vue';
+  import { onBeforeUnmount, onMounted, watch, defineEmits } from 'vue';
+  import '_libs/table/index.less';
+  import {
+    store,
+    tableRef,
+    defaultProps,
+    getScroll,
+  } from '_libs/container/table/service/tableContainer.js';
 
-  defineProps({
-    config: {
-      type: Object,
-      default: {},
+  const props = defineProps(defaultProps);
+  watch(
+    () => props.config,
+    (value) => {
+      store.tableConfig = Object.assign({}, store.tableConfig, props.config);
     },
-    title: {
-      type: String,
-    },
+    {
+      immediate: true,
+      deep: true,
+    }
+  );
+
+  onMounted(() => {
+    getScroll(props.fixHeight);
+    window.addEventListener('resize', getScroll);
   });
+
+  onBeforeUnmount(() => {
+    window.removeEventListener('resize', getScroll);
+  });
+  const emitter = defineEmits(['tableChange']);
+  const handleTableChange = (data) => {
+    emitter('tableChange', data);
+  };
 </script>
 
 <style scoped lang="less">
@@ -81,7 +108,7 @@
 
   .table-container {
     :deep(.ant-card-body) {
-      padding: 0;
+      padding: 0 4px;
     }
 
     :deep(.ant-card-head) {

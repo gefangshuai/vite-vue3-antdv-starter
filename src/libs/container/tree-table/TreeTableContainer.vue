@@ -57,7 +57,12 @@
     <!--End-->
     <slot name="mainHead"></slot>
 
-    <s-table :config="tableConfig" in-container @change="handleTableChange">
+    <a-table
+      v-bind="tableConfig"
+      @change="handleTableChange"
+      ref="tableRef"
+      class="table-fix-pagination"
+    >
       <template
         v-if="$slots.customFilterIcon"
         #customFilterIcon="{ filtered, column }"
@@ -107,13 +112,18 @@
         <slot name="emptyText"></slot>
       </template>
       <slot></slot>
-    </s-table>
+    </a-table>
   </tree-container>
 </template>
 
 <script setup>
   import TreeContainer from '_libs/container/tree/TreeContainer.vue';
-  import STable from '_libs/s-table/STable.vue';
+  import { ref } from 'vue';
+  import { useScroll } from '_libs/table/index.js';
+  import '_libs/table/index.less';
+  import _isNumber from 'lodash/isNumber';
+
+  const tableRef = ref(null);
 
   const prop = defineProps({
     tableConfig: {

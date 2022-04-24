@@ -1,5 +1,9 @@
 <template>
-  <tree-table-container :tree-config="treeConfig" :table-config="tableConfig" title="Tree Table Container">
+  <tree-table-container
+    :tree-config="treeConfig"
+    :table-config="tableConfig"
+    title="Tree Table Container"
+  >
     <template #expandedRowRender="{ record }">
       <p class="padding-left-lg">
         {{ record.name }}
@@ -9,14 +13,14 @@
     <template v-slot:extra>
       <a-button type="primary">Add User</a-button>
     </template>
-    <s-table-column title="Username" prop="name"></s-table-column>
-    <s-table-column title="Email" prop="email"></s-table-column>
-    <s-table-column title="Avatar" prop="avatar"></s-table-column>
-    <s-table-column
+    <a-table-column title="Username" data-index="name"></a-table-column>
+    <a-table-column title="Email" data-index="email"></a-table-column>
+    <a-table-column title="Avatar" data-index="avatar"></a-table-column>
+    <a-table-column
       title="CreatedAt"
-      prop="createdAt"
+      data-index="createdAt"
       fixed="right"
-    ></s-table-column>
+    ></a-table-column>
   </tree-table-container>
 </template>
 

@@ -39,4 +39,8 @@ router.beforeEach((to, from, next) => {
   }
 });
 
+router.afterEach((to, from) => {
+  Store.dispatch('app/changePageLoadingAction', {loading: false})
+})
+
 export default router;

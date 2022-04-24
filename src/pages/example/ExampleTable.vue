@@ -1,5 +1,10 @@
 <template>
-  <s-table :config="tableConfig" ref="tableRef">
+  <a-table
+    class="table-fix-pagination"
+    ref="tableRef"
+    :data-source="tableConfig.dataSource"
+    :scroll="tableConfig.scroll"
+  >
     <template #expandedRowRender="{ record }">
       <p class="padding-left-lg">
         {{ record.name }}
@@ -55,15 +60,15 @@
         </a-button>
       </div>
     </template>
-    <s-table-column
+    <a-table-column
       title="Username"
-      prop="name"
+      data-index="name"
       :sorter="handleSort"
       :width="300"
-    ></s-table-column>
-    <s-table-column
+    ></a-table-column>
+    <a-table-column
       title="Email"
-      prop="email"
+      data-index="email"
       :onFilter="handleEmailFilter"
       :filters="[
         {
@@ -79,34 +84,34 @@
           value: 'C',
         },
       ]"
-    ></s-table-column>
-    <s-table-column title="Avatar" prop="avatar">
+    ></a-table-column>
+    <a-table-column title="Avatar" data-index="avatar">
       <template v-slot="{ text }">
         <a-avatar></a-avatar>
       </template>
-    </s-table-column>
-    <s-table-column
+    </a-table-column>
+    <a-table-column
       title="CreatedAt"
-      prop="createdAt"
+      data-index="createdAt"
       :customFilterDropdown="true"
-    ></s-table-column>
-    <s-table-column title="Operation" prop="id" :width="100">
+    ></a-table-column>
+    <a-table-column title="Operation" data-index="id" :width="100">
       <template v-slot="{ index, record, text }">
         <a-button type="primary" @click="handleClick(record)" size="small"
           >操作
         </a-button>
       </template>
-    </s-table-column>
-  </s-table>
+    </a-table-column>
+  </a-table>
 </template>
 
 <script setup>
-  import STable from '_libs/s-table/STable.vue';
-  import STableColumn from '_libs/s-table/STableColumn.vue';
-  import { reactive, ref } from 'vue';
+  import { computed, reactive, ref } from 'vue';
   import { message } from 'ant-design-vue';
   import http from '@/core/http.js';
   import { SearchOutlined } from '@ant-design/icons-vue';
+  import { useScroll } from '_libs/table/index.js';
+  import '_libs/table/index.less';
 
   const count = ref(1);
   const tableRef = ref(null);
@@ -114,6 +119,7 @@
   const tableConfig = reactive({
     dataSource: [],
     loading: true,
+    scroll: computed(() => useScroll({ tableRef, offset: 48 })),
     // pagination: false
   });
   const handleSort = (a, b) => {
