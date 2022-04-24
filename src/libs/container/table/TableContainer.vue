@@ -1,5 +1,5 @@
 <template>
-  <base-container class="table-container">
+  <base-container class="table-container" :hide-head="hideHead">
     <template v-slot:title>
       <slot v-if="$slots.title" name="title"></slot>
       <span v-else>{{ title }}</span>
@@ -79,9 +79,9 @@
 
   const props = defineProps(defaultProps);
   watch(
-    () => props.config,
+    () => props.tableConfig,
     (value) => {
-      store.tableConfig = Object.assign({}, store.tableConfig, props.config);
+      store.tableConfig = Object.assign({}, store.tableConfig, props.tableConfig);
     },
     {
       immediate: true,

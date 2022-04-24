@@ -5,12 +5,15 @@ import { useScroll } from '_libs/table/index.js';
 const tableRef = ref(null);
 
 const defaultProps = {
-  config: {
+  tableConfig: {
     type: Object,
     default: {},
   },
   title: {
     type: String,
+  },
+  hideHead: {
+    type: Boolean,
   },
   fixHeight: {
     type: [Number, Boolean],
