@@ -28,7 +28,6 @@
   import TreeTableContainer from '_libs/container/tree-table/TreeTableContainer.vue';
   import { reactive } from 'vue';
   import http from '@/core/http.js';
-  import STableColumn from '_libs/s-table/STableColumn.vue';
 
   const treeConfig = {
     defaultExpandAll: true,

@@ -174,11 +174,6 @@ const menus = [
     icon: LayoutOutlined,
     title: 'ExtraContainer',
     children: [
-      {
-        key: 'ExampleExtraTableContainer',
-        title: 'ExtraTableContainer',
-        url: '/example/extra-container/extra-table-container',
-      },
     ],
   },
   {
