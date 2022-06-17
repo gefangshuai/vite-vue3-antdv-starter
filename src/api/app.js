@@ -1,5 +1,9 @@
-import Http from "@/core/http";
+import Http from '@/core/http';
 
-export const fetchAppInfo = () => {
-    return Http.get('/api/apps/vite-vue3-antdv-starter')
-}
+const app = {
+  fetchAppInfo() {
+    return Http.get('/api/apps/vite-vue3-antdv-starter');
+  },
+};
+
+export { app };

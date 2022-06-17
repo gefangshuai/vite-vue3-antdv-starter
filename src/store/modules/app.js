@@ -1,3 +1,5 @@
+import { app } from '_api/app.js';
+
 export default {
   namespaced: true,
   state: {
@@ -9,7 +11,17 @@ export default {
     pageLoadingGet: (state) => state.pageLoading,
   },
   actions: {
-    loadAppInfoAction({commit}) {},
+    loadAppInfoAction({ commit }) {
+      return new Promise((resolve, reject) => {
+        app
+          .fetchAppInfo()
+          .then((res) => {
+            commit('loadAppInfoAction', res.data);
+            resolve(res.data);
+          })
+          .catch(reject);
+      });
+    },
     changePageLoadingAction({ commit }, { loading }) {
       commit('changePageLoadingAction', loading);
     },

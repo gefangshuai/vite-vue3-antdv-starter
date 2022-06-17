@@ -5,7 +5,6 @@ export default {
     app.directive('link', {
       // 当被绑定的元素挂载到 DOM 中时……
       mounted(el, binding) {
-        console.log(binding);
         el._CLICK_ = (e) => {
           if (binding.modifiers && binding.modifiers.href) {
             location.href = binding.value;
